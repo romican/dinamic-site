@@ -1,4 +1,7 @@
-<?php include("path.php");?>
+<?php include("path.php");      
+      include("app/controllers/users.php")
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -28,34 +31,41 @@
     />
     <title>Hello, world!</title>
   </head>
-
   <body>
     <!-- Блок шапки и меню старт -->
     <?php include("app/include/header.php");?>
     <!-- Блок шапки и меню конец -->
     <!-- FORM start -->
     <div class="container reg_form">
-      <form class="row justify-content-center" method="POST" action="reg.html">
+      <form class="row justify-content-center" method="POST" action="reg.php">
         <h2>Форма регистрации</h2>
+        <div class="mb-3 col-12 col-md-4 err">
+          <p><?=$errMsg?></p>
+        </div>
+        <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
           <label for="formGroupExampleInput" class="form-label"
             >Ваш логин</label
           >
           <input
+            value="<?=$login?>"
             type="text"
             class="form-control"
             id="formGroupExampleInput"
             placeholder="Введите Ваш логин"
+            name="login"
           />
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
           <label for="exampleInputEmail1" class="form-label">Email</label>
           <input
+            value="<?=$email?>"
             type="email"
             class="form-control"
             id="exampleInputEmail1"
             aria-describedby="emailHelp"
+            name="mail"
           />
           <div id="emailHelp" class="form-text">
             Ваш е-мейл не будет использован для спама.
@@ -68,6 +78,7 @@
             type="password"
             class="form-control"
             id="exampleInputPassword1"
+            name="pass-first"
           />
         </div>
         <div class="w-100"></div>
@@ -79,11 +90,12 @@
             type="password"
             class="form-control"
             id="exampleInputPassword2"
+            name="pass-second"
           />
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-          <button type="button" class="btn btn-outline-secondary">
+          <button type="submit" class="btn btn-outline-secondary" name="button-reg">
             Регистрация
           </button>
           <a href="log.php">Войти</a>

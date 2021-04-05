@@ -1,6 +1,7 @@
-<?php include("path.php");?>
+<?php include("path.php");
+      include("app/controllers/users.php")?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
   <head>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
@@ -35,23 +36,30 @@
     <!-- Блок шапки и меню конец -->
     <!-- FORM start -->
     <div class="container reg_form">
-      <form class="row justify-content-center" method="POST" action="log.html">
+      <form class="row justify-content-center" method="POST" action="log.php">
         <h2>Авторизация</h2>
+        <div class="mb-3 col-12 col-md-4 err">
+          <p><?=$errMsg?></p>
+        </div>
+        <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
           <label for="formGroupExampleInput" class="form-label"
-            >Ваш логин</label
+            >Ваша почта (при регистрации)</label
           >
           <input
-            type="text"
+            value="<?=$email?>"
+            type="email"
             class="form-control"
-            id="formGroupExampleInput"
-            placeholder="Введите Ваш логин"
+            id="exampleInputEmail1"
+            aria-describedby="emailHelp"
+            name="mail"
           />
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
           <label for="exampleInputPassword1" class="form-label">Пароль</label>
           <input
+            name="password"
             type="password"
             class="form-control"
             id="exampleInputPassword1"
@@ -59,7 +67,7 @@
         </div>
         <div class="w-100"></div>
         <div class="mb-3 col-12 col-md-4">
-          <button type="button" class="btn btn-outline-secondary">Войти</button>
+<button name="button-log" type="submit" class="btn btn-outline-secondary">Войти</button>
           <a href="reg.php">Регистрация</a>
         </div>
       </form>

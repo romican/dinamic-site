@@ -1,6 +1,7 @@
 <?php
-
+session_start();
 require('connect.php');
+
 //Вывод массива красивым видом
 function tt($value){
     echo '<pre>';
@@ -66,10 +67,7 @@ function selectOne($table, $params = []){
     dbCheckError($query);
     return $query->fetch();
 }
-
-
 //Запись в таблицу БД
-
 function insert($table, $params){
     global $pdo;
     $i=0;
@@ -92,14 +90,38 @@ function insert($table, $params){
     $query = $pdo->prepare($sql);
     $query->execute($params);    
     dbCheckError($query);
+    return $pdo->lastInsertId();
+}
+//Обновление строки в таблице SQL
+function update($table, $id, $params){
+    global $pdo;
+    $i=0;
+    $str = '';
+    foreach ($params as $key => $value) {
+        if ($i ===0) {
+            $str = $str . $key . " = '". $value . "'";
+        }else{
+            $str = $str . ", " . $key . " = '". $value . "'";
+            
+        }
+        $i++;
+    }
+    //UPDATE `users` SET `username` = 'test' WHERE `id` = '4'
+    $sql = "UPDATE $table SET $str WHERE id = $id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute($params);    
+    dbCheckError($query);
 }
 
-// $arrData =[
-//     'admin'=> '0',
-//     'username'=> 'Inserter',
-//     'email'=> 're24343433@re.ru',
-//     'password'=> '121212434311',
-//     'created'=> '2021-01-01 00:00:01',
-// ];
+//Удаление строки в таблице SQL
+function delete($table, $id){
+    global $pdo;
 
-// insert('users',$arrData);
+    //DELETE FROM `users` WHERE `id` = 1
+    $sql = "DELETE FROM $table WHERE id = $id";
+
+    $query = $pdo->prepare($sql);
+    $query->execute();    
+    dbCheckError($query);
+}
